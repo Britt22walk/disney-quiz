@@ -1,0 +1,64 @@
+/* Your styles should be mobile-first and responsive */
+
+/** 
+  * If you are unclear on how to utilize a mobile-first, responsive technique to write your CSS, here is an example: 
+  *
+  * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
+  *
+*/
+
+* {
+  box-sizing: border-box;
+  
+}
+
+body{
+  background-image: url(background.jpeg);
+}
+
+h1{
+  text-align: center;
+}
+
+p{
+  text-align: center;
+  font-size: 28px;
+}
+
+.parent-div {
+  border: 5px black solid;
+  margin: 5%;
+  padding: 5%;
+  text-align: center;
+}
+
+.container{
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center; 
+  align-content: center;
+
+}
+
+.item{
+  flex-grow: 1;
+  align-content: center;
+}
+
+.item-left{
+  flex-grow: 1;
+  text-align: left;
+}
+
+div{
+  margin: 1px;
+  padding: 1px;
+  align-content: center;
+}
+
+
+.center{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
