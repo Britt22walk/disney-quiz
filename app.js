@@ -79,10 +79,137 @@ const store = {
 
 // These functions return HTML templates
 
+function generateWelcomeMessage(){
+  return  `<div class='parent-div'>
+  <form>
+  <h2>Welcome to the Disney Quiz!</h2>
+    <p>Click the button below to test your Disney knowledge</p>
+    <button type="start">Start</button>
+    </form>
+ </div>` 
+}
+
+function generateScore(){
+  //this function will track and generate the score
+}
+
+function generateQuestionNumber(){
+  //this function with track and generate the question number. 
+}
+
+function generateAnswers(){
+  const answersArray=STORE.questions[STORE.currentQuestion].answer
+  let answersHtml ='';
+  let i=0;
+  answersArray.forEach(answer =>{
+    answersHtml=+`<div class='item-left'>
+    <ol>
+      <li><input name="answers" type="radio" value="Ariel">
+        <label for="Ariel">Ariel</label></li>
+    </ol>
+    </div>`
+  })
+}
+
+function generatesQuestions(){
+  let currentQuestion=store.questions[store.currentQuestion];
+  return ` <form action="process-form.js" method="POST" class='item'>
+  <fieldset class="parent-div">
+    <legend><h2>Question 1</h2></legend>
+    <label for="question" type><h2>${currentQuestion.question}</h2></label>
+    <div class='item-left js-answers'>
+        <ol>
+          ${generateAnswers()}
+        </ol>
+    </div>
+    <button type="submit" id="submit" class="item">Submit</button>
+    <button type="reset" id="reset" class="item">Reset</button>
+    <p>Score: 0</p>
+  </fieldset>
+</form>`
+  //this function generates and displays questions
+}
+
+function resultsScreen(){
+  return `<div class='parent-div'>
+  <h2>Thank you for taking the Disney Quiz!</h2>
+    <p>You're score is: ${STORE.score}/${STORE.questions.length}</p>
+    <button type="restart">Re-Start Quiz</button>
+  </div>`
+
+}
+
+function generateFeedbackMessage(){
+  let correctAnswers = STORE.questions[STORE.currentQuestion].correctAnswer
+  let html = ''
+  if(answerStatus==='correct'){
+    html=`<div class="center">
+    <p>That's Correct!</p>
+    <button type="continue">Continue</button>
+    </div>`;
+  } else if (answerStatus==='incorrect'){
+    html=`<div class="center">
+    <p>That's Incorrect. The correct answer is INSERT CORRECT ANSWER HERE</p>
+    <button type="continue">Continue</button>
+    </div>`;
+  }
+  return html; 
+  //this function determines if answer is correct not. Returns correct or incorrect prompt. 
+}
+
 /********** RENDER FUNCTION(S) **********/
+function renderQuiz(){
+  console.log('`renderQuiz` ran')
+  let html ='';
+  if(store.quizStarted===false){
+    $('main').html(generateWelcomeMessage());
+    return;
+  } else {
+    generatesQuestions();
+  }
+}
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
 
 /********** EVENT HANDLER FUNCTIONS **********/
 
-// These functions handle events (submit, click, etc)
+function handleStartClick(){
+//this function with run when users click the start button
+  $('button').on('click', function(event){
+    console.log('Quiz Started');
+    store.quizStarted=true;
+    renderQuiz();
+  });
+  
+}
+
+function handleSubmitClick(){
+  $('button').on('submit', '#submit', function(event){
+  //this function will run when users click the submit button
+  });
+  
+}
+
+function handleContinueClick(){
+  //this function will run when users click the Contiune button
+  //load new questions to main element
+  //render updated score
+}
+
+function restartQuiz(){
+
+}
+
+function handleRestartClick(){
+  $('body').on('click', '#restart',)
+}
+
+
+//******* MAIN FUNCTION TO HANDLE QUIZ APP *********// 
+
+function handleQuizApp(){
+  renderQuiz();
+  handleStartClick();
+}
+
+$(handleQuizApp);

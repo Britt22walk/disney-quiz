@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Quiz App</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet"
+    type="text/css" />
+  <link href="app.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <header>
+    <h1>Disney Quiz</h1>
+  </header>
+  <main class='container'>
+    <form id="question-form" class='item'>
+      <fieldset class="parent-div">
+        <legend><h2>Question 1</h2></legend>
+        <label for="question" type><h2>What is the name of Sleeping Beauty?</h2></label>
+        <div class='item-left'>
+            <ol>
+              <li><input name="answers" type="radio" value="Ariel">
+                <label for="Ariel">Ariel</label></li>
+              <li><input name="answers" type="radio" value="Jasmine">
+                <label for="Jasmine">Jasmine</label></li>
+              <li><input name="correctAnswer" type="radio" value="Aurora">
+                <label for="Aurora">Aurora</label></li>
+              <li><input name="answers" type="radio" value="Belle">
+                <label for="Belle">Belle</label></li>
+            </ol>
+        </div>
+        <button type="submit" class="item">Submit</button>
+        <button type="reset" class="item">Reset</button>
+        <p>Score: 0</p>
+      </fieldset>
+    </form>
+    <div class="center">
+      <p>That's Correct!</p>
+      <button type="continue">Continue</button>
+    </div>
+    <div class="center">
+      <p>That's Incorrect. The correct answer is INSERT CORRECT ANSWER HERE</p>
+      <button type="continue">Continue</button>
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+</body>
+</html>
