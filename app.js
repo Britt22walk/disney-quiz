@@ -4,6 +4,7 @@
 const store = {
   questions: [
     {
+      questionNumber: '1',
       question: 'What is the name of the neighbor in Toy Story?',
       answers: [
         'John',
@@ -14,6 +15,7 @@ const store = {
       correctAnswer: 'Sid'
     },
     {
+      questionNumber:'2',
       question: 'What does Hakuna Mata mean?',
       answers: [
         'No Worries',
@@ -24,6 +26,7 @@ const store = {
       correctAnswer: 'No Worries'
     },
     {
+      questionNumber:'3',
       question:'What does Ariel call a fork?',
       answers:[
         'Boondogle',
@@ -34,6 +37,7 @@ const store = {
       correctAnswer: 'Dinglehoper'
     },
     {
+      questionNumber:'4',
       question:'How many themeparks are in Walt Disney World',
       answers:[
       '2',
@@ -44,6 +48,7 @@ const store = {
     correctAnswer:'4'
     },
     {
+      questionNumber:'5',
       question:'What is the name of Sleeping Beauty?',
       answers:[
         'Ariel',
@@ -88,11 +93,7 @@ function generateWelcomeMessage(){
     </form>
  </div>` 
 }
-
-function generateScore(){
-  //this function will track and generate the score
-}
-
+/*
 function generateQuestionNumber(){
   //this function with track and generate the question number. 
 }
@@ -109,31 +110,30 @@ function generateAnswers(){
     </ol>
     </div>`
   })
-}
+}*/
 
 function generatesQuestions(){
-  let currentQuestion=store.questions[store.currentQuestion];
-  return ` <form action="process-form.js" method="POST" class='item'>
+  return ` <form id="question-form" class='item'>
   <fieldset class="parent-div">
     <legend><h2>Question 1</h2></legend>
-    <label for="question" type><h2>${currentQuestion.question}</h2></label>
-    <div class='item-left js-answers'>
+    <label for="question" type><h2>Questions</h2></label>
+    <div class='item-left'>
         <ol>
-          ${generateAnswers()}
+          ANSWERS
         </ol>
     </div>
-    <button type="submit" id="submit" class="item">Submit</button>
-    <button type="reset" id="reset" class="item">Reset</button>
+    <button type="submit" class="item">Submit</button>
+    <button type="reset" class="item">Reset</button>
     <p>Score: 0</p>
   </fieldset>
 </form>`
   //this function generates and displays questions
 }
-
-function resultsScreen(){
+/*
+function generateResultsScreen(){
   return `<div class='parent-div'>
   <h2>Thank you for taking the Disney Quiz!</h2>
-    <p>You're score is: ${STORE.score}/${STORE.questions.length}</p>
+    <p>You're score is: ${store.score}/${store.questions.length}</p>
     <button type="restart">Re-Start Quiz</button>
   </div>`
 
@@ -143,6 +143,7 @@ function generateFeedbackMessage(){
   let correctAnswers = STORE.questions[STORE.currentQuestion].correctAnswer
   let html = ''
   if(answerStatus==='correct'){
+    store.score+=
     html=`<div class="center">
     <p>That's Correct!</p>
     <button type="continue">Continue</button>
@@ -157,6 +158,8 @@ function generateFeedbackMessage(){
   //this function determines if answer is correct not. Returns correct or incorrect prompt. 
 }
 
+*/
+
 /********** RENDER FUNCTION(S) **********/
 function renderQuiz(){
   console.log('`renderQuiz` ran')
@@ -164,9 +167,10 @@ function renderQuiz(){
   if(store.quizStarted===false){
     $('main').html(generateWelcomeMessage());
     return;
-  } else {
-    generatesQuestions();
-  }
+  } else  {
+    $('main').html(generatesQuestions());
+    return;
+  } 
 }
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
@@ -180,30 +184,30 @@ function handleStartClick(){
     store.quizStarted=true;
     renderQuiz();
   });
-  
 }
-
+//BELOW FUNCTIONS IN PROGRESS//
+/*
 function handleSubmitClick(){
-  $('button').on('submit', '#submit', function(event){
+  $('body').on('submit', '#submit', function(event){
   //this function will run when users click the submit button
   });
   
 }
 
 function handleContinueClick(){
-  //this function will run when users click the Contiune button
+  $('body').on('click', '#continue', function(event){
+    //this function will run when users click the Contiune button
   //load new questions to main element
-  //render updated score
-}
-
-function restartQuiz(){
-
+  })
+  
 }
 
 function handleRestartClick(){
   $('body').on('click', '#restart',)
+  // this function will run when user click the restart button
+  //zeros out score. takes back to welcome page. 
 }
-
+*/
 
 //******* MAIN FUNCTION TO HANDLE QUIZ APP *********// 
 
