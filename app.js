@@ -65,6 +65,9 @@ const store = {
   score: 0
 };
 
+let currentQuestionId=0;
+let currentQuestion=0;
+let correctAnswers=0;
 /**
  * 
  * Technical requirements:
@@ -89,7 +92,7 @@ function generateWelcomeMessage(){
   <form>
   <h2>Welcome to the Disney Quiz!</h2>
     <p>Click the button below to test your Disney knowledge</p>
-    <button type="start">Start</button>
+    <button id="start">Start</button>
     </form>
  </div>` 
 }
@@ -98,33 +101,34 @@ function generateQuestionNumber(){
   //this function with track and generate the question number. 
 }
 
-function generateAnswers(){
-  const answersArray=STORE.questions[STORE.currentQuestion].answer
-  let answersHtml ='';
-  let i=0;
+function generateAnswers(answers){
+  let answerArray = []
+  let indexArray = []
   answersArray.forEach(answer =>{
-    answersHtml=+`<div class='item-left'>
-    <ol>
-      <li><input name="answers" type="radio" value="Ariel">
-        <label for="Ariel">Ariel</label></li>
-    </ol>
-    </div>`
+    answerArray.push(answer);
+    indexArray.push(answers.indexOf(answer));
+      <li><input name="answers" type="radio" id="js-answers">
+        <label for="Ariel">Ariel</label></li>`
   })
 }*/
+
+function generateAnswerString(){
+
+}
 
 function generatesQuestions(){
   return ` <form id="question-form" class='item'>
   <fieldset class="parent-div">
-    <legend><h2>Question 1</h2></legend>
-    <label for="question" type><h2>Questions</h2></label>
-    <div class='item-left'>
-        <ol>
+    <legend><h2>Question ${store.questions.questionNumber}</h2></legend>
+    <label for="question" type><h2>${store.questions.question}</h2></label>
+      <ol>
+        <div class='item-left' id="answer">
           ANSWERS
-        </ol>
-    </div>
-    <button type="submit" class="item">Submit</button>
-    <button type="reset" class="item">Reset</button>
-    <p>Score: 0</p>
+        </div>
+      </ol>
+    <button id="submit" class="item">Submit</button>
+    <button id="reset" class="item">Reset</button>
+    <p>Score: ${store.score}</p>
   </fieldset>
 </form>`
   //this function generates and displays questions
@@ -162,8 +166,7 @@ function generateFeedbackMessage(){
 
 /********** RENDER FUNCTION(S) **********/
 function renderQuiz(){
-  console.log('`renderQuiz` ran')
-  let html ='';
+  console.log('Quiz Rendered')
   if(store.quizStarted===false){
     $('main').html(generateWelcomeMessage());
     return;
@@ -179,21 +182,23 @@ function renderQuiz(){
 
 function handleStartClick(){
 //this function with run when users click the start button
-  $('button').on('click', function(event){
+  $('#start').on('click', function(event){
     console.log('Quiz Started');
+    event.preventDefault();
     store.quizStarted=true;
     renderQuiz();
   });
 }
 //BELOW FUNCTIONS IN PROGRESS//
-/*
+
 function handleSubmitClick(){
-  $('body').on('submit', '#submit', function(event){
-  //this function will run when users click the submit button
+  $('#submit').on('submit', function(event){
+  event.preventDefault();
+  console.log('Submitt Button clicked')
   });
   
 }
-
+/*
 function handleContinueClick(){
   $('body').on('click', '#continue', function(event){
     //this function will run when users click the Contiune button
