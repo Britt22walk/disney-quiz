@@ -65,9 +65,7 @@ const store = {
   score: 0
 };
 
-let currentQuestionId=0;
-let currentQuestion=0;
-let correctAnswers=0;
+
 /**
  * 
  * Technical requirements:
@@ -100,32 +98,21 @@ function generateWelcomeMessage(){
 function generateQuestionNumber(){
   //this function with track and generate the question number. 
 }
-
-function generateAnswers(answers){
-  let answerArray = []
-  let indexArray = []
-  answersArray.forEach(answer =>{
-    answerArray.push(answer);
-    indexArray.push(answers.indexOf(answer));
-      <li><input name="answers" type="radio" id="js-answers">
-        <label for="Ariel">Ariel</label></li>`
-  })
-}*/
-
-function generateAnswerString(){
-
-}
-
+*/
 function generatesQuestions(){
-  return ` <form id="question-form" class='item'>
-  <fieldset class="parent-div">
-    <legend><h2>Question ${store.questions.questionNumber}</h2></legend>
-    <label for="question" type><h2>${store.questions.question}</h2></label>
+  let answers=store.questions[0].answers.map((a)=>{
+    return `
       <ol>
         <div class='item-left' id="answer">
-          ANSWERS
+              ${a}
         </div>
-      </ol>
+      </ol>` ;
+  })
+  return ` <form id="question-form" class='item'>
+  <fieldset class="parent-div">
+    <legend><h2>Question ${store.questions[0].questionNumber}</h2></legend>
+    <label for="question" type><h2>${store.questions[0].question}</h2></label>
+      ${answers.join('')}
     <button id="submit" class="item">Submit</button>
     <button id="reset" class="item">Reset</button>
     <p>Score: ${store.score}</p>
