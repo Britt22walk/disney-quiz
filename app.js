@@ -4,7 +4,6 @@
 const store = {
   questions: [
     {
-      questionNumber: '1',
       question: 'What is the name of the neighbor in Toy Story?',
       answers: [
         'John',
@@ -15,7 +14,6 @@ const store = {
       correctAnswer: 'Sid'
     },
     {
-      questionNumber:'2',
       question: 'What does Hakuna Mata mean?',
       answers: [
         'No Worries',
@@ -26,7 +24,6 @@ const store = {
       correctAnswer: 'No Worries'
     },
     {
-      questionNumber:'3',
       question:'What does Ariel call a fork?',
       answers:[
         'Boondogle',
@@ -37,7 +34,6 @@ const store = {
       correctAnswer: 'Dinglehoper'
     },
     {
-      questionNumber:'4',
       question:'How many themeparks are in Walt Disney World',
       answers:[
       '2',
@@ -48,7 +44,6 @@ const store = {
     correctAnswer:'4'
     },
     {
-      questionNumber:'5',
       question:'What is the name of Sleeping Beauty?',
       answers:[
         'Ariel',
@@ -94,32 +89,30 @@ function generateWelcomeMessage(){
     </form>
  </div>` 
 }
-/*
-function generateQuestionNumber(){
-  //this function with track and generate the question number. 
-}
-*/
-function generatesQuestions(){
-  let answers=store.questions[0].answers.map((a)=>{
+
+function generatesQuestions(questionNumber){ 
+//this function generates and displays questions and answers 
+  let answers=store.questions[store.questionNumber].answers.map((a)=>{
     return `
-      <ol>
+      <ul>
         <div class='item-left' id="answer">
-              ${a}
+          <li><input name="answers" type="radio">
+                <label>${a}</label></li>
         </div>
-      </ol>` ;
+      </ul>` ;
   })
   return ` <form id="question-form" class='item'>
   <fieldset class="parent-div">
-    <legend><h2>Question ${store.questions[0].questionNumber}</h2></legend>
-    <label for="question" type><h2>${store.questions[0].question}</h2></label>
+    <legend><h2>Question ${store.questionNumber +1}</h2></legend>
+    <label for="question" type><h2>${store.questions[store.questionNumber].question}</h2></label>
       ${answers.join('')}
     <button id="submit" class="item">Submit</button>
     <button id="reset" class="item">Reset</button>
     <p>Score: ${store.score}</p>
   </fieldset>
 </form>`
-  //this function generates and displays questions
 }
+
 /*
 function generateResultsScreen(){
   return `<div class='parent-div'>
@@ -159,6 +152,8 @@ function renderQuiz(){
     return;
   } else  {
     $('main').html(generatesQuestions());
+    
+    //add event listeners for answers 
     return;
   } 
 }
@@ -176,16 +171,18 @@ function handleStartClick(){
     renderQuiz();
   });
 }
-//BELOW FUNCTIONS IN PROGRESS//
 
+/*
 function handleSubmitClick(){
   $('#submit').on('submit', function(event){
   event.preventDefault();
   console.log('Submitt Button clicked')
+  let currentQuestion=store.questions[store.questionNumber]
+  
   });
   
 }
-/*
+
 function handleContinueClick(){
   $('body').on('click', '#continue', function(event){
     //this function will run when users click the Contiune button
