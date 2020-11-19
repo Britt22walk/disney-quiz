@@ -107,7 +107,6 @@ function generatesQuestions(questionNumber){
     <label for="question" type><h2>${store.questions[store.questionNumber].question}</h2></label>
       ${answers.join('')}
     <button id="submit" class="item">Submit</button>
-    <button id="reset" class="item">Reset</button>
     <p>Score: ${store.score}</p>
   </fieldset>
 </form>`
@@ -122,27 +121,29 @@ function generateResultsScreen(){
   </div>`
 
 }
+*/
 
 function generateFeedbackMessage(){
-  let correctAnswers = STORE.questions[STORE.currentQuestion].correctAnswer
-  let html = ''
-  if(answerStatus==='correct'){
-    store.score+=
-    html=`<div class="center">
+
+}
+
+function checkAnswer(){
+  console.log('Answer Selected');
+  let userAnswer = $('input[type=radio][name=answers]:checked').val();
+  let correctAnswer= store.questions[store.questionNumber].correctAnswer
+  if(userAnswer===correctAnswer){ //if user input is correct
+    store.score++ //increase score count in store and return correct message 
+    return `<div class="center"> 
     <p>That's Correct!</p>
     <button type="continue">Continue</button>
     </div>`;
-  } else if (answerStatus==='incorrect'){
-    html=`<div class="center">
-    <p>That's Incorrect. The correct answer is INSERT CORRECT ANSWER HERE</p>
+  } else { // return incorrect message with correct answer 
+    return `<div class="center">
+    <p>That's Incorrect. The correct answer is ${correctAnswer}</p>
     <button type="continue">Continue</button>
     </div>`;
   }
-  return html; 
-  //this function determines if answer is correct not. Returns correct or incorrect prompt. 
 }
-
-*/
 
 /********** RENDER FUNCTION(S) **********/
 function renderQuiz(){
@@ -152,8 +153,7 @@ function renderQuiz(){
     return;
   } else  {
     $('main').html(generatesQuestions());
-    
-    //add event listeners for answers 
+
     return;
   } 
 }
@@ -172,25 +172,27 @@ function handleStartClick(){
   });
 }
 
-/*
+
 function handleSubmitClick(){
-  $('#submit').on('submit', function(event){
+  $('#submit').on('click', function(event){ //on submit button click 
   event.preventDefault();
-  console.log('Submitt Button clicked')
-  let currentQuestion=store.questions[store.questionNumber]
-  
+  console.log('Submitt Button clicked');
+  checkAnswer(); //run the checkAnswer function 
   });
   
 }
 
 function handleContinueClick(){
   $('body').on('click', '#continue', function(event){
-    //this function will run when users click the Contiune button
-  //load new questions to main element
+    //this function will run when the continue button is clicked. 
+    event.preventDefault();
+    questionNumber++; //increase questionNumber in store 
+    renderQuiz(); //loads next question or results screen 
+    
   })
   
 }
-
+/*
 function handleRestartClick(){
   $('body').on('click', '#restart',)
   // this function will run when user click the restart button
@@ -203,6 +205,7 @@ function handleRestartClick(){
 function handleQuizApp(){
   renderQuiz();
   handleStartClick();
+  handleSubmitClick;
 }
 
 $(handleQuizApp);
