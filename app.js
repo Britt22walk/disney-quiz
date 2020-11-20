@@ -180,7 +180,7 @@ function handleSubmitClick(){
 }
 
 function handleContinueClick(){
-  $('#continue').on('click', function(event){
+  $('body').on('click', '#continue', function(event){
     //this function will run when the continue button is clicked. 
     event.preventDefault();
     store.questionNumber++; //increase questionNumber in store 
