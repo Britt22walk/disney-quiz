@@ -96,14 +96,14 @@ function generatesQuestions(questionNumber){
     return `
       <ul>
         <div class='item-left' id="answer">
-          <li><input name="answers" type="radio">
+          <li><input value="${a}" name="answers" type="radio">
                 <label>${a}</label></li>
         </div>
       </ul>` ;
   })
   return ` <form id="question-form" class='item'>
   <fieldset class="parent-div">
-    <legend><h2>Question ${store.questionNumber +1}</h2></legend>
+    <legend><h2>Question ${store.questionNumber +1}(out of ${store.questions.length})</h2></legend>
     <label for="question" type><h2>${store.questions[store.questionNumber].question}</h2></label>
       ${answers.join('')}
     <button id="submit" class="item">Submit</button>
@@ -112,20 +112,18 @@ function generatesQuestions(questionNumber){
 </form>`
 }
 
-/*
+
 function generateResultsScreen(){
   return `<div class='parent-div'>
   <h2>Thank you for taking the Disney Quiz!</h2>
     <p>You're score is: ${store.score}/${store.questions.length}</p>
-    <button type="restart">Re-Start Quiz</button>
+    <button type="button" id="restart">Re-Start Quiz</button>
   </div>`
 
 }
-*/
 
-function generateFeedbackMessage(){
 
-}
+
 
 function checkAnswer(){
   console.log('Answer Selected');
@@ -133,14 +131,14 @@ function checkAnswer(){
   let correctAnswer= store.questions[store.questionNumber].correctAnswer
   if(userAnswer===correctAnswer){ //if user input is correct
     store.score++ //increase score count in store and return correct message 
-    return `<div class="center"> 
+    return `<div class="parent-div"> 
     <p>That's Correct!</p>
-    <button type="continue">Continue</button>
+    <button type="button" id="continue">Continue</button>
     </div>`;
   } else { // return incorrect message with correct answer 
-    return `<div class="center">
+    return `<div class="parent-div">
     <p>That's Incorrect. The correct answer is ${correctAnswer}</p>
-    <button type="continue">Continue</button>
+    <button type="button" id="continue">Continue</button>
     </div>`;
   }
 }
@@ -151,11 +149,13 @@ function renderQuiz(){
   if(store.quizStarted===false){
     $('main').html(generateWelcomeMessage());
     return;
-  } else  {
+  } else if(store.quizStarted===true&&store.questionNumber<store.questions.length) {
     $('main').html(generatesQuestions());
-
     return;
-  } 
+  }  else { 
+    $('main').html(generateResultsScreen())
+    return;
+  }
 }
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
@@ -164,7 +164,7 @@ function renderQuiz(){
 
 function handleStartClick(){
 //this function with run when users click the start button
-  $('#start').on('click', function(event){
+  $('body').on('click', '#start', function(event){
     console.log('Quiz Started');
     event.preventDefault();
     store.quizStarted=true;
@@ -174,38 +174,44 @@ function handleStartClick(){
 
 
 function handleSubmitClick(){
-  $('#submit').on('click', function(event){ //on submit button click 
+  $('body').on('submit','#question-form', function(event){ //on submit button click 
   event.preventDefault();
   console.log('Submitt Button clicked');
-  checkAnswer(); //run the checkAnswer function 
+  $('main').html(checkAnswer()); //run the checkAnswer function 
   });
-  
+
 }
 
 function handleContinueClick(){
   $('body').on('click', '#continue', function(event){
     //this function will run when the continue button is clicked. 
     event.preventDefault();
-    questionNumber++; //increase questionNumber in store 
+    store.questionNumber++; //increase questionNumber in store 
     renderQuiz(); //loads next question or results screen 
     
   })
   
 }
-/*
+
 function handleRestartClick(){
-  $('body').on('click', '#restart',)
-  // this function will run when user click the restart button
-  //zeros out score. takes back to welcome page. 
+  $('body').on('click', '#restart',function(){
+  event.preventDefault();
+  store.questionNumber=0;
+  store.quizStarted=false;
+  store.score=0;
+  renderQuiz(); 
+  })
 }
-*/
+
 
 //******* MAIN FUNCTION TO HANDLE QUIZ APP *********// 
 
 function handleQuizApp(){
   renderQuiz();
   handleStartClick();
-  handleSubmitClick;
+  handleSubmitClick();
+  handleContinueClick();
+  handleRestartClick();
 }
 
 $(handleQuizApp);
