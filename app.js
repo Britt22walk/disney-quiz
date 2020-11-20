@@ -126,8 +126,7 @@ function generateResultsScreen(){
 
 
 function checkAnswer(){
-  console.log('Answer Selected');
-  let userAnswer = $('input[type=radio][name=answers]:checked').val();
+  let userAnswer = $('input[name=answers]:checked').val();
   let correctAnswer= store.questions[store.questionNumber].correctAnswer
   if(userAnswer===correctAnswer){ //if user input is correct
     store.score++ //increase score count in store and return correct message 
@@ -172,25 +171,22 @@ function handleStartClick(){
   });
 }
 
-
 function handleSubmitClick(){
   $('body').on('submit','#question-form', function(event){ //on submit button click 
   event.preventDefault();
   console.log('Submitt Button clicked');
   $('main').html(checkAnswer()); //run the checkAnswer function 
   });
-
 }
 
 function handleContinueClick(){
-  $('body').on('click', '#continue', function(event){
+  $('#continue').on('click', function(event){
     //this function will run when the continue button is clicked. 
     event.preventDefault();
     store.questionNumber++; //increase questionNumber in store 
     renderQuiz(); //loads next question or results screen 
     
   })
-  
 }
 
 function handleRestartClick(){
