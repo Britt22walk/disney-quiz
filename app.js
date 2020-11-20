@@ -112,7 +112,7 @@ function generatesQuestions(questionNumber){
 </form>`
 }
 
-/*
+
 function generateResultsScreen(){
   return `<div class='parent-div'>
   <h2>Thank you for taking the Disney Quiz!</h2>
@@ -121,15 +121,10 @@ function generateResultsScreen(){
   </div>`
 
 }
-*/
 
-function generateFeedbackMessage(){
-
-}
 
 function checkAnswer(){
-  console.log('Answer Selected');
-  let userAnswer = $('input[type=radio][name=answers]:checked').val();
+  let userAnswer = $('input[name=answers]:checked').val();
   let correctAnswer= store.questions[store.questionNumber].correctAnswer
   if(userAnswer===correctAnswer){ //if user input is correct
     store.score++ //increase score count in store and return correct message 
@@ -153,7 +148,6 @@ function renderQuiz(){
     return;
   } else  {
     $('main').html(generatesQuestions());
-
     return;
   } 
 }
@@ -172,33 +166,33 @@ function handleStartClick(){
   });
 }
 
-
 function handleSubmitClick(){
   $('#submit').on('click', function(event){ //on submit button click 
   event.preventDefault();
   console.log('Submitt Button clicked');
   checkAnswer(); //run the checkAnswer function 
   });
-  
 }
 
 function handleContinueClick(){
-  $('body').on('click', '#continue', function(event){
+  $('#continue').on('click', function(event){
     //this function will run when the continue button is clicked. 
     event.preventDefault();
     questionNumber++; //increase questionNumber in store 
-    renderQuiz(); //loads next question or results screen 
-    
+    renderQuiz(); //loads next question or results screen   
   })
-  
 }
-/*
+
 function handleRestartClick(){
-  $('body').on('click', '#restart',)
-  // this function will run when user click the restart button
-  //zeros out score. takes back to welcome page. 
+  $('#restart').on('click', function(event){
+    console.log('Restart Quiz')
+    store.score=0
+    store.questionNumber=0
+    store.quizStarted = false
+    renderQuiz(); 
+  })
 }
-*/
+
 
 //******* MAIN FUNCTION TO HANDLE QUIZ APP *********// 
 
