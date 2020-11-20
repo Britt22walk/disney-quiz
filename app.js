@@ -93,13 +93,12 @@ function generateWelcomeMessage(){
 function generatesQuestions(questionNumber){ 
 //this function generates and displays questions and answers 
   let answers=store.questions[store.questionNumber].answers.map((a)=>{
-    return `
+    return `<div class='item-left' id="answer">
       <ul>
-        <div class='item-left' id="answer">
           <li><input value="${a}" name="answers" type="radio">
                 <label>${a}</label></li>
-        </div>
-      </ul>` ;
+      </ul>
+      </div>` ;
   })
   return ` <form id="question-form" class='item'>
   <fieldset class="parent-div">
@@ -107,7 +106,7 @@ function generatesQuestions(questionNumber){
     <label for="question" type><h2>${store.questions[store.questionNumber].question}</h2></label>
       ${answers.join('')}
     <button id="submit" class="item">Submit</button>
-    <p>Score: ${store.score}</p>
+    <p>Score: ${store.score}/${store.questions.length}</p>
   </fieldset>
 </form>`
 }
@@ -123,8 +122,6 @@ function generateResultsScreen(){
 }
 
 
-
-
 function checkAnswer(){
   let userAnswer = $('input[name=answers]:checked').val();
   let correctAnswer= store.questions[store.questionNumber].correctAnswer
@@ -136,7 +133,7 @@ function checkAnswer(){
     </div>`;
   } else { // return incorrect message with correct answer 
     return `<div class="parent-div">
-    <p>That's Incorrect. The correct answer is ${correctAnswer}</p>
+    <p>That's Incorrect. The correct answer is <strong>${correctAnswer}</strong></p>
     <button type="button" id="continue">Continue</button>
     </div>`;
   }

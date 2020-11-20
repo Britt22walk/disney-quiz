@@ -20,6 +20,7 @@ body{
 h1{
   text-align: center;
   letter-spacing: 2px;
+  font-size: 40px;
 }
 
 p{
@@ -68,4 +69,11 @@ div{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@media all and (min-width:600px){
+  body{
+    font-size: larger;
+  }
+
 }
