@@ -95,7 +95,7 @@ function generatesQuestions(questionNumber){
   let answers=store.questions[store.questionNumber].answers.map((a)=>{
     return `<div class='item-left' id="answer">
       <ul>
-          <li><input value="${a}" name="answers" type="radio">
+          <li><input value="${a}" name="answers"  required type="radio">
                 <label>${a}</label></li>
       </ul>
       </div>` ;
